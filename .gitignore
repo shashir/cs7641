@@ -22,6 +22,7 @@
 *.nav
 *.nlo
 *.out
+*.pdf
 *.pdfsync
 *.ps
 *.snm
@@ -30,3 +31,9 @@
 *.vrb
 *.xdy
 *.tdo
+
+# Temporary files used by editors.
+*~
+*.swp
+.#*
+\#*
