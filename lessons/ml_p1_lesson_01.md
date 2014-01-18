@@ -6,7 +6,7 @@ Classification and regression
 
 In supervised learning, you are presented with instances (e.g. images of individuals) with labels (e.g. "BOY" or "GIRL") as training data. The task is to label new unlabeled instances (assuming the instance has the sufficient information).
 
-* **Classification** -- labels are discrete values (often true or false).
+* **Classification** -- labels are discrete values (often finite, often true or false).
   * Better definition [Shashir]: labels (codomain of the target function) have no meaningful order.
 * **Regression** -- labels are reals.
   * Better definition [Shashir]: labels have a meaningful order.
@@ -87,39 +87,69 @@ Intuition:
 * There are 2^n possible configurations of the attributes.
 * Each "unique" decision tree maps these 2^n configurations into a 2^n-sized bit vector.
 * There are 2^(2^n) possible bit vectors of size 2^n.
-* Therefore, there must are 2^(2^n) possible trees to search.
+* Therefore, there must are 2^(2^n) possible unique classifiers.
+* Note that more than one tree may map to a single classifier, so the hypothesis space is even larger (thanks to inductive bias, we can cut down the problem significantly).
 
 ID3 Algorithm
 -------------
 
-'''
-Node {
-  Node parent;
-  Set<Node> children;
-  Set<Instance> instances;
-}
+```
+A <- best attribute from remaining attributes (initially, all attributes)
+Assign A as decision attribute for Node
+For each value of A, create a new descendant of Node
+Sort training examples to leaves
+If examples are perfectly classified, STOP.
+Else if we ran out of attributes, STOP
+Else, start over for each leaf (with corresponding set of training examples)
+```
 
-Instance {
-  Map<Key=Attribute, Value=Attribute.domain> attributes;
-}
+The **best attribute** is that one with the greatest information gain.
 
-Tree decisionTree = null;
+<img src="http://s.wordpress.com/latex.php?latex=GAIN%28S%2C%20A%29%20%3D%20ENTROPY%28S%29%20-%20%5Csum_v%20%5Cfrac%7B%7CS_%7BA%3Dv%7D%7C%7D%7B%7CS%7C%7DENTROPY%28S_%7BA%3Dv%7D%29&amp;bg=ffffff&amp;fg=000000&amp;s=0" alt="GAIN(S, A) = ENTROPY(S) - \sum_v \frac{|S_{A=v}|}{|S|}ENTROPY(S_{A=v})" title="GAIN(S, A) = ENTROPY(S) - \sum_v \frac{|S_{A=v}|}{|S|}ENTROPY(S_{A=v})" class="latex">
 
-'''
+Where ENTROPY is defined as:
 
+<img src="http://s.wordpress.com/latex.php?latex=ENTROPY%28S%29%20%3D%20-%5Csum_v%20p%28v%29%5Clog%20p%28v%29&amp;bg=ffffff&amp;fg=000000&amp;s=0" alt="ENTROPY(S) = -\sum_v p(v)\log p(v)" title="ENTROPY(S) = -\sum_v p(v)\log p(v)" class="latex">
 
-
-
-
-
-
+The **best attribute** is the one that splits the data into subsets whose entropies' weighted sum is the least (maximizing the information gain).
 
 
+The **inductive bias** of the ID3 algorithm:
+* The best splitters appear earlier (closer to the root).
+  * Produces shorter trees.
+* Prefers correct classifiers over incorrect trees (thanks for that)
 
 
+Decision trees: other considerations
+------------------------------------
+
+* How do handle continuous attributes?
+  * Use intervals
+    * Split age range 0-90 into 0-40 and 40-90 -- perhaps even use a modified ID3 to find the best splitting age.
+* Does it make sense to repeat an attribute along a path in the tree?
+  * No for finite-valued attributes.
+  * However, continuous attributes can be tested with different questions
+  * No question needs to be asked twice.
+* When do we stop?
+  * Everything classified correctly (or nearly correct -- we do not want to **overfit**).
+  * No more attributes.
+  * Do not **overfit**.
+    * Try not to have a tree which is too big.
+    * Try many trees and cross-validation.
+    * Variant of cross-validation where you hold out a subset of the data and build a tree breadth-first on the remaining data. Stop when error is "low enough."
+    * Build the whole tree and prune (vote if the classification is not perfect).
+* Regression
+  * Model output and group them (round off or cluster).
+  * Report average on leaves, or vote, or locally fit a line (hybrid).
 
 
+Decision trees
+--------------
 
-
-
-
+We learned:
+* Representation (tree... set of questions)
+* ID3: a top down learning algorithm
+* Expressiveness of DTs
+* Bias of ID3
+* "Best" attribute Gain(S, A)
+* Dealing with overfitting.
