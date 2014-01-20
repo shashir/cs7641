@@ -113,6 +113,8 @@ Where ENTROPY is defined as:
 
 The **best attribute** is the one that splits the data into subsets whose entropies' weighted sum is the least (maximizing the information gain).
 
+<img src="http://s.wordpress.com/latex.php?latex=A%5E%2A%20%3D%20%7B%5Ctextrm%7Bargmin%7D_A%5Ctextrm%7B%20%7D%7D%20%5Csum_v%7CS_v%7CENTROPY%28S_v%29&amp;bg=ffffff&amp;fg=000000&amp;s=0" alt="A^* = {\textrm{argmin}_A\textrm{ }} \sum_v|S_v|ENTROPY(S_v)" title="A^* = {\textrm{argmin}_A\textrm{ }} \sum_v|S_v|ENTROPY(S_v)" class="latex">
+
 
 The **inductive bias** of the ID3 algorithm:
 * The best splitters appear earlier (closer to the root).
