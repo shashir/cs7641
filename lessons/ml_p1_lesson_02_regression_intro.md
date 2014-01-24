@@ -19,8 +19,8 @@ We would like for the best fit "curve" (surface) such that it minimizes an error
 When we have an overfit candidate function, though it produces no error on the training set, it will not generalize.
 
 
-Polynomial regression
----------------------
+Performing linear regression
+----------------------------
 
 Let our instance be elements of R^n. Suppose we have a training set {(x_1, y_1), (x_2, y_2), ..., (x_m, y_m)} where x_i are in R^n and y_i are in R. We would like to find w such that x dot w approximates y.
 
@@ -42,7 +42,11 @@ All data has noise/errors arising from sensor error, malicious agents, transcrip
 
 We should not overfit to training data in order not to model the errors.
 
-MSE = 
+We want to train until we minimuze the mean squared error (MSE) on the training data.
+
+<img src="http://s.wordpress.com/latex.php?latex=MSE%20%3D%20%5Cfrac%7B1%7D%7Bn%7D%20%5Csum_i%20%28w%20%5Ccdot%20x_i%20-%20y_i%29%5E2&amp;bg=ffffff&amp;fg=000000&amp;s=0" alt="MSE = \frac{1}{n} \sum_i (w \cdot x_i - y_i)^2" title="MSE = \frac{1}{n} \sum_i (w \cdot x_i - y_i)^2" class="latex">
+
+Next we want to compute the error on various testing sets to make sure that the model is not so complicated that it overfits and doesn't generalize.
 
 Cross validation
 ----------------
