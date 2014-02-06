@@ -109,4 +109,59 @@ Every node can be trained based on it's respective inputs and output using the g
 
 With networks, there may be many local optima. We need to use clever techniques to arrive at a suitable set of weights.
 
+Optimizing weights
+------------------
+
+How do arrive at a suitable set of weights? Optimization problem.
+
+* Use momentum terms in the gradient (simulated annealing?)
+* higher order derivatives (hamiltonians, etc.)
+* randomized optimization (later on in the course)
+* penalty for "complexity" (overfitting) -- too many hidden layers? too many nodes in a layer? large valued weights (interesting)
+
+
+Restriction bias
+----------------
+
+Restriction bias -- the representational power and the set of hypotheses we will consider.
+
+Perceptrons are linear models (discriminant lines splitting planes). Networks of perceptrons can approximate more complex functions. Sigmoids allow even better learning and can fit more interesting functions.
+
+* Boolean functions -- network of threshold-like units.
+* Continuous functions -- use sigmoid activation and a hidden layer.
+* Arbitrary functions -- stitch together two or more functions with discontinuitives with two hidden layers.
+
+Overfitting problem with more complex networks.
+
+* We can bound the architecture of the network. 
+* Cross validate to better bound the architecture or bound the weights.
+* We should also find the number of iterations at which the network best generalizes.
+
+Not really much of a restriction bias.
+
+
+Preference bias
+---------------
+
+Preference bias -- which representation is preferred by the algorithm.
+
+Generally we initialize the network with small random weights -- we prefer "simpler"/less complex representations. (This can hit a local minimum. We generally run the training multiple times to avoid local minimum.)
+
+Practically, (Occam's Razor) produces simpler and generalizable representations.
+
+Summary
+-------
+
+* Perceptron (linear and thresholded)
+* Perceptron learning rule
+* Gradient descent
+* Sigmoid function
+* Restriction bias
+* Preference bias
+
+
+
+
+
+
 
