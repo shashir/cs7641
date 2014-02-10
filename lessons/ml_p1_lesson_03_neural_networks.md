@@ -1,4 +1,4 @@
-Neural Networks
+Lesson 3: Neural Networks
 ===============
 
 Artificial neural networks
